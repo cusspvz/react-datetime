@@ -58,9 +58,9 @@ var DateTimePickerTime = onClickOutside( createClass({
 				}
 			}
 			return DOM.div({ key: type, className: 'rdtCounter' }, [
-				DOM.span({ key: 'up', className: 'rdtBtn', onMouseDown: this.onStartClicking( 'increase', type ) }, '▲' ),
+				DOM.span({ key: 'up', className: 'rdtBtn', onTouchStart: this.onStartClicking( 'increase', type ), onMouseDown: this.onStartClicking( 'increase', type ) }, '▲' ),
 				DOM.div({ key: 'c', className: 'rdtCount' }, value ),
-				DOM.span({ key: 'do', className: 'rdtBtn', onMouseDown: this.onStartClicking( 'decrease', type ) }, '▼' )
+				DOM.span({ key: 'do', className: 'rdtBtn', onTouchStart: this.onStartClicking( 'decrease', type ), onMouseDown: this.onStartClicking( 'decrease', type ) }, '▼' )
 			]);
 		}
 		return '';
@@ -68,9 +68,9 @@ var DateTimePickerTime = onClickOutside( createClass({
 
 	renderDayPart: function() {
 		return DOM.div({ key: 'dayPart', className: 'rdtCounter' }, [
-			DOM.span({ key: 'up', className: 'rdtBtn', onMouseDown: this.onStartClicking( 'toggleDayPart', 'hours') }, '▲' ),
+			DOM.span({ key: 'up', className: 'rdtBtn', onTouchStart: this.onStartClicking( 'toggleDayPart', 'hours'), onMouseDown: this.onStartClicking( 'toggleDayPart', 'hours') }, '▲' ),
 			DOM.div({ key: this.state.daypart, className: 'rdtCount' }, this.state.daypart ),
-			DOM.span({ key: 'do', className: 'rdtBtn', onMouseDown: this.onStartClicking( 'toggleDayPart', 'hours') }, '▼' )
+			DOM.span({ key: 'do', className: 'rdtBtn', onTouchStart: this.onStartClicking( 'toggleDayPart', 'hours'), onMouseDown: this.onStartClicking( 'toggleDayPart', 'hours') }, '▼' )
 		]);
 	},
 
@@ -180,9 +180,11 @@ var DateTimePickerTime = onClickOutside( createClass({
 				clearInterval( me.increaseTimer );
 				me.props.setTime( type, me.state[ type ] );
 				document.body.removeEventListener( 'mouseup', me.mouseUpListener );
+				document.body.removeEventListener( 'touchend', me.mouseUpListener );
 			};
 
 			document.body.addEventListener( 'mouseup', me.mouseUpListener );
+			document.body.addEventListener( 'touchend', me.mouseUpListener );
 		};
 	},
 
